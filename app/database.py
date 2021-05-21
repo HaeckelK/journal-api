@@ -2,7 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///data/sql_app.db"
+import os
+try:
+    os.remove("/data/app.db")
+except:
+    pass
+SQLALCHEMY_DATABASE_URL = "sqlite:///data/app.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 engine = create_engine(
