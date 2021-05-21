@@ -22,9 +22,6 @@ def get_db():
 
 @app.post("/journals/", response_model=schemas.Journal)
 def create_journal(journal: schemas.JournalCreate, db: Session = Depends(get_db)):
-    db_journal = crud.get_journal_by_email(db, email=journal.email)
-    if db_journal:
-        raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_journal(db=db, journal=journal)
 
 

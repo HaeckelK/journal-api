@@ -7,17 +7,12 @@ def get_journal(db: Session, journal_id: int):
     return db.query(models.Journal).filter(models.Journal.id == journal_id).first()
 
 
-def get_journal_by_email(db: Session, email: str):
-    return db.query(models.Journal).filter(models.Journal.email == email).first()
-
-
 def get_journals(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Journal).offset(skip).limit(limit).all()
 
 
 def create_journal(db: Session, journal: schemas.JournalCreate):
-    fake_hashed_password = journal.password + "notreallyhashed"
-    db_journal = models.Journal(email=journal.email, hashed_password=fake_hashed_password)
+    db_journal = models.Journal()
     db.add(db_journal)
     db.commit()
     db.refresh(db_journal)

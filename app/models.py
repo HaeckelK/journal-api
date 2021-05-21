@@ -8,8 +8,6 @@ class Journal(Base):
     __tablename__ = "journals"
 
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
 
     items = relationship("Item", back_populates="owner")
 

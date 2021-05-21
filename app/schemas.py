@@ -21,11 +21,11 @@ class Item(ItemBase):
 
 
 class JournalBase(BaseModel):
-    email: str
+    pass
 
 
 class JournalCreate(JournalBase):
-    password: str
+    pass
 
 
 class Journal(JournalBase):
