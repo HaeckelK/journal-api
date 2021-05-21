@@ -20,33 +20,33 @@ def get_db():
         db.close()
 
 
-@app.post("/users/", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
+@app.post("/journals/", response_model=schemas.Journal)
+def create_journal(journal: schemas.JournalCreate, db: Session = Depends(get_db)):
+    db_journal = crud.get_journal_by_email(db, email=journal.email)
+    if db_journal:
         raise HTTPException(status_code=400, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+    return crud.create_journal(db=db, journal=journal)
 
 
-@app.get("/users/", response_model=List[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    users = crud.get_users(db, skip=skip, limit=limit)
-    return users
+@app.get("/journals/", response_model=List[schemas.Journal])
+def read_journals(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    journals = crud.get_journals(db, skip=skip, limit=limit)
+    return journals
 
 
-@app.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, user_id=user_id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
+@app.get("/journals/{journal_id}", response_model=schemas.Journal)
+def read_journal(journal_id: int, db: Session = Depends(get_db)):
+    db_journal = crud.get_journal(db, journal_id=journal_id)
+    if db_journal is None:
+        raise HTTPException(status_code=404, detail="Journal not found")
+    return db_journal
 
 
-@app.post("/users/{user_id}/items/", response_model=schemas.Item)
-def create_item_for_user(
-    user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
+@app.post("/journals/{journal_id}/items/", response_model=schemas.Item)
+def create_item_for_journal(
+    journal_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
 ):
-    return crud.create_user_item(db=db, item=item, user_id=user_id)
+    return crud.create_journal_item(db=db, item=item, journal_id=journal_id)
 
 
 @app.get("/items/", response_model=List[schemas.Item])

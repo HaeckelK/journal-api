@@ -20,15 +20,15 @@ class Item(ItemBase):
         orm_mode = True
 
 
-class UserBase(BaseModel):
+class JournalBase(BaseModel):
     email: str
 
 
-class UserCreate(UserBase):
+class JournalCreate(JournalBase):
     password: str
 
 
-class User(UserBase):
+class Journal(JournalBase):
     id: int
     is_active: bool
     items: List[Item] = []
