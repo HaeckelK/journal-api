@@ -30,7 +30,6 @@ class JournalCreate(JournalBase):
 
 class Journal(JournalBase):
     id: int
-    is_active: bool
     items: List[Item] = []
 
     class Config:
