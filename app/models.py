@@ -4,8 +4,8 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
-class User(Base):
-    __tablename__ = "users"
+class Journal(Base):
+    __tablename__ = "journals"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
@@ -21,6 +21,6 @@ class Item(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("journals.id"))
 
-    owner = relationship("User", back_populates="items")
+    owner = relationship("Journal", back_populates="items")
