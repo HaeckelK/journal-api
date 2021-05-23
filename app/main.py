@@ -54,6 +54,9 @@ def read_journal(journal_id: int, db: Session = Depends(get_db)):
 def create_item_for_journal(
     journal_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
 ):
+    db_journal = crud.get_journal(db, journal_id=journal_id)
+    if not db_journal:
+        raise HTTPException(status_code=400, detail=f"Journal with id {journal_id} not registered")
     return crud.create_journal_item(db=db, item=item, journal_id=journal_id)
 
 
