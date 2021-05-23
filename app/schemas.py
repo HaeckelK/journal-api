@@ -1,4 +1,5 @@
 from typing import List, Optional
+import datetime
 
 from pydantic import BaseModel
 
@@ -31,8 +32,8 @@ class JournalCreate(JournalBase):
 class Journal(JournalBase):
     id: int
     items: List[Item] = []
-    created_at: str
-    modified_at: str
+    created_at: datetime.datetime
+    modified_at: datetime.datetime
 
     class Config:
         orm_mode = True

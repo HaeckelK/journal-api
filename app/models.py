@@ -6,10 +6,8 @@ from .database import Base
 
 
 class TimestampMixin(object):
-    # created_time = Column(DateTime, default=func.now())
-    # modified_time = Column(DateTime, default=func.now())
-    created_at = Column(Integer, default=123)
-    modified_at = Column(Integer, default=456)
+    created_at = Column(DateTime, default=func.now())
+    modified_at = Column(DateTime, default=func.now())
 
 
 class Journal(TimestampMixin, Base):
