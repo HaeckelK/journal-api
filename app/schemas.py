@@ -26,7 +26,7 @@ class JournalBase(BaseModel):
 
 
 class JournalCreate(JournalBase):
-    pass
+    date: Optional[int] = -1
 
 
 class Journal(JournalBase):

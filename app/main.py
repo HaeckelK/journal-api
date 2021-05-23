@@ -22,6 +22,8 @@ def get_db():
 
 @app.post("/journals/", response_model=schemas.Journal)
 def create_journal(journal: schemas.JournalCreate, db: Session = Depends(get_db)):
+    if journal.date != -1 and len(str(journal.date)) != 8:
+        raise HTTPException(status_code=400, detail="date must be in yyyymmdd format")
     return crud.create_journal(db=db, journal=journal)
 
 

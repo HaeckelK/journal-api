@@ -13,6 +13,8 @@ def get_journals(db: Session, skip: int = 0, limit: int = 100):
 
 def create_journal(db: Session, journal: schemas.JournalCreate):
     db_journal = models.Journal()
+    if journal.date != -1:
+        db_journal.id = journal.date
     db.add(db_journal)
     db.commit()
     db.refresh(db_journal)
