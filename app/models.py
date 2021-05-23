@@ -18,7 +18,7 @@ class Journal(TimestampMixin, Base):
     items = relationship("Item", back_populates="owner")
 
 
-class Item(Base):
+class Item(TimestampMixin, Base):
     __tablename__ = "items"
 
     id = Column(Integer, primary_key=True, index=True)

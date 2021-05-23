@@ -16,6 +16,8 @@ class ItemCreate(ItemBase):
 class Item(ItemBase):
     id: int
     owner_id: int
+    created_at: datetime.datetime
+    modified_at: datetime.datetime
 
     class Config:
         orm_mode = True
