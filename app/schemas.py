@@ -1,4 +1,5 @@
 from typing import List, Optional
+import datetime
 
 from pydantic import BaseModel
 
@@ -6,6 +7,7 @@ from pydantic import BaseModel
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
+    source: Optional[str] = ""
 
 
 class ItemCreate(ItemBase):
@@ -15,23 +17,26 @@ class ItemCreate(ItemBase):
 class Item(ItemBase):
     id: int
     owner_id: int
+    created_at: datetime.datetime
+    modified_at: datetime.datetime
 
     class Config:
         orm_mode = True
 
 
-class UserBase(BaseModel):
-    email: str
+class JournalBase(BaseModel):
+    source: Optional[str] = ""
 
 
-class UserCreate(UserBase):
-    password: str
+class JournalCreate(JournalBase):
+    date: Optional[int] = -1
 
 
-class User(UserBase):
+class Journal(JournalBase):
     id: int
-    is_active: bool
     items: List[Item] = []
+    created_at: datetime.datetime
+    modified_at: datetime.datetime
 
     class Config:
         orm_mode = True
