@@ -24,6 +24,14 @@ def get_db():
 def create_journal(journal: schemas.JournalCreate, db: Session = Depends(get_db)):
     if journal.date != -1 and len(str(journal.date)) != 8:
         raise HTTPException(status_code=400, detail="date must be in yyyymmdd format")
+
+    if journal.date == -1:
+        journal.date = "19901231"
+
+    db_journal = crud.get_journal(db, journal_id=journal.date)
+    if db_journal:
+        raise HTTPException(status_code=400, detail=f"Journal with date {journal.date} already registered")
+
     return crud.create_journal(db=db, journal=journal)
 
 
