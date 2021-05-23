@@ -31,6 +31,8 @@ class JournalCreate(JournalBase):
 class Journal(JournalBase):
     id: int
     items: List[Item] = []
+    created_at: str
+    modified_at: str
 
     class Config:
         orm_mode = True
