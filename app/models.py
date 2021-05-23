@@ -8,6 +8,7 @@ from .database import Base
 class TimestampMixin(object):
     created_at = Column(DateTime, default=func.now())
     modified_at = Column(DateTime, default=func.now())
+    source = Column(String)
 
 
 class Journal(TimestampMixin, Base):

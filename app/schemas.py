@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
+    source: Optional[str] = ""
 
 
 class ItemCreate(ItemBase):
@@ -24,7 +25,7 @@ class Item(ItemBase):
 
 
 class JournalBase(BaseModel):
-    pass
+    source: Optional[str] = ""
 
 
 class JournalCreate(JournalBase):
