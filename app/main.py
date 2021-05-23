@@ -46,7 +46,15 @@ def read_journals(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 def read_journal(journal_id: int, db: Session = Depends(get_db)):
     db_journal = crud.get_journal(db, journal_id=journal_id)
     if db_journal is None:
-        raise HTTPException(status_code=404, detail="Journal not found")
+        raise HTTPException(status_code=404, detail=f"Journal with id {journal_id} not found")
+    return db_journal
+
+
+@app.delete("/journals/{journal_id}", response_model=schemas.Journal)
+def delete_journal(journal_id: int, db: Session = Depends(get_db)):
+    db_journal = crud.delete_journal(db, journal_id=journal_id)
+    if db_journal is None:
+        raise HTTPException(status_code=404, detail=f"Journal with id {journal_id} not found")
     return db_journal
 
 
@@ -64,3 +72,11 @@ def create_item_for_journal(
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
+
+
+@app.delete("/items/{item_id}", response_model=schemas.Item)
+def delete_item(item_id: int, db: Session = Depends(get_db)):
+    db_item = crud.delete_item(db, item_id=item_id)
+    if db_item is None:
+        raise HTTPException(status_code=404, detail=f"Item with id {item_id} not found")
+    return db_item
