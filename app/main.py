@@ -1,4 +1,5 @@
 from typing import List
+from datetime import datetime
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
@@ -26,7 +27,7 @@ def create_journal(journal: schemas.JournalCreate, db: Session = Depends(get_db)
         raise HTTPException(status_code=400, detail="date must be in yyyymmdd format")
 
     if journal.date == -1:
-        journal.date = "19901231"
+        journal.date = datetime.today().strftime('%Y%m%d')
 
     db_journal = crud.get_journal(db, journal_id=journal.date)
     if db_journal:
