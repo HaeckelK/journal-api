@@ -21,6 +21,15 @@ def create_journal(db: Session, journal: schemas.JournalCreate):
     return db_journal
 
 
+def delete_journal(db: Session, journal_id: int):
+    db_journal = db.query(models.Journal).filter(models.Journal.id == journal_id).first()
+    if not db_journal:
+        return db_journal
+    db.delete(db_journal)
+    db.commit()
+    return db_journal
+
+
 def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Item).offset(skip).limit(limit).all()
 
